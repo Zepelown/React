@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack')
 //노드에서 지원하는 경로 지원 모듈
 
 module.exports = {
@@ -22,11 +23,25 @@ module.exports = {
 			loader: 'babel-loader',
 			options: {
 				presets: [
-					'@babel/preset-env','@babel/preset-react']
+					['@babel/preset-env',{
+						targets: {
+							browsers: ['> 1% in KR',
+									   'last 2 chrome versions'],
+							node: 'current',
+						},
+						debug: true,
+					}],
+					'@babel/preset-react'
+				],
+				plugins: []
 			}
 		}]
 	},
-	
+	plugins: [
+		new webpack.LoaderOptionsPlugin({
+			debug: true
+		})
+	],
 	output: {
 		path: path.join(__dirname, 'dist'), // C:\users\noncreateapp\와 경로를 만들어주는 방식
 		filename: 'app.js'

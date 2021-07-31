@@ -8,7 +8,7 @@ class WordRelay extends Component {
 
 
 	render() {
-		return <h1>{this.state.text}</h1>
+		return (<h1>{this.state.text}</h1>)
 	}
 }
 
