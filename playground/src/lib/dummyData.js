@@ -24,4 +24,9 @@ export const dummyData = {
 		name: "Austin",
 		phone: "010-4444-4444"
 	},
+	"5": {
+		id: "5",
+		name: "Adam",
+		phone: "010-5555-5555"
+	},
 }

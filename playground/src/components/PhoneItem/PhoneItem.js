@@ -1,7 +1,7 @@
 import React from "react";
 import "./PhoneItem.css";
 
-const PhoneItem = () => {
+const PhoneItem = ({name, phone}) => {
 	return (
 		<div className="phone_item">
 			<div className="phone_item_left">
