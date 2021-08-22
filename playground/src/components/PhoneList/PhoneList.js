@@ -1,16 +1,23 @@
 import React from "react";
-import "./PhoneList.css";
+import styled from "styled-components";
 import PhoneItem from "../PhoneItem";
 
-const PhoneList = () => {
+const PhoneWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 50px;
+`;
+
+const PhoneList = ({ list}) => {
 	return (
-	<div className="phone_list">
-		<PhoneItem/>
-		<PhoneItem/>
-		<PhoneItem/>
-	</div>
-	
-	);
-};
+		<PhoneWrapper>
+			<PhoneItem {...list["0"]} />
+			<PhoneItem {...list["1"]}/>
+			<PhoneItem {...list["2"]}/>
+			<PhoneItem {...list["3"]}/>
+			<PhoneItem {...list["4"]}/>
+		</PhoneWrapper>
+	)
+}
 
 export default PhoneList;
