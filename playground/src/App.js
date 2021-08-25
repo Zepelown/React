@@ -1,10 +1,54 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import InputBox from "./components/InputBox"
 import PhoneList from "./components/PhoneList"
 import './App.css';
 import { dummyData, nextId, setNextId } from "./lib/dummyData.js"
+import useInput from './lib/useInput'
 
-class App extends Component {
+const App = () => {
+	const [data, setData] = useState(dummyData);
+	const [name, setName, onChangeName] = useInput("");
+	const [phone, setPhone, onChangePhone] = useInput("");
+	
+	const handleSubmit = () => {
+		if (name === "" || phone === "") return;
+		
+		setData({
+			...data,
+			[nextId]: {
+				id: String(nextId),
+				name,
+				phone
+		}
+		});
+		setName("");
+		setPhone("");
+		
+		setNextId();
+	};
+	
+	const handleRemove = id => {
+		const { [id]: _, ...dummyData} = data;
+		setData(dummyData);
+	}
+	
+	return (
+		<div className="container">
+			<InputBox
+				name={name}
+				phone={phone}
+				onChangeName={onChangeName}
+				onChangePhone={onChangePhone}
+				onSubmit={handleSubmit}
+			/>
+			<PhoneList list={data} deleteItem={handleRemove}/>
+		</div>
+	)
+}
+
+
+
+/*class App extends Component {
 	state = {
 		dummyData,
 		name: "",
@@ -60,6 +104,6 @@ class App extends Component {
 			</div>
 		);
 	}
-}
+} */
 
 export default App;
