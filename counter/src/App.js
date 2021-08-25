@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import CountButton from "./components/CountButton";
 import Number from "./components/Number";
 import styled from "styled-components";
+import { Provider, connect } from "react-redux";
+import * as counter from "./store/reducer";
+import { bindActionCreators } from "redux";
 
 const Wrapper = styled.div`
 	margin: 0 auto;
@@ -19,10 +22,42 @@ const ButtonWrapper = styled.div`
 	margin-bottom: 50px;
 `;
 
-const App = () => {
+const App = ({ number, counter }) => {
+	return (
+		<Wrapper>
+			<ButtonWrapper>
+				<CountButton onClick={() => 
+					counter.increase(number + 1)}
+					text="+"/>
+				<CountButton onClick={() => 
+					counter.decrease(number - 1)}
+					text="-"/>
+			</ButtonWrapper>
+			<Number number={number}/>
+		</Wrapper>
+	)
+}
+
+const mapStateToProps = state => ({
+	number: state.number
+})
+
+const mapDispatchToProps = dispatch => ({
+	counter: bindActionCreators(counter, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+
+
+
+
+
+
+/*const App = () => {
 	const [ number, setNumber] = useState(0);
 	
-	//훅스에서 사이클 관리법
+	훅스에서 사이클 관리법
 	useEffect(() => {
 		console.log("useEffect -> componentDidMount");
 		
@@ -42,15 +77,13 @@ const App = () => {
 	return (
 		<Wrapper>
 			<ButtonWrapper>
-				<CountButton 
-					onClick={() => setNumber(number + 1)} text="+"/>
-				<CountButton
-					onClick={() => setNumber(number - 1)} text="-"/>
+				<CountButton onClick={ } text="+"/>
+				<CountButton onClick={} text="-"/>
 			</ButtonWrapper>
 			<Number number={number} />
 		</Wrapper>
 	)
-}
+}*/
 
 /*
 이전 클래스형태
@@ -108,4 +141,3 @@ class App extends Component {
 
 */
 
-export default App;
